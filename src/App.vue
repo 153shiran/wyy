@@ -1,17 +1,4 @@
 <template>
-  <router-view />
-  <div>
-    <Home />
-  </div>
+  <RouterView />
+  <div class="w-[100px] h-[100px] bg-red-400"></div>
 </template>
-<script setup>
-import Home from "./views/Home.vue";
-</script>
-
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
