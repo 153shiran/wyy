@@ -1,4 +1,5 @@
 <!-- eslint-disable vue/valid-v-for -->
+<!-- 图标列表 -->
 <template>
   <div class="iconListBox">
     <van-swipe
