@@ -15,7 +15,12 @@ export default {
     declineTerms() {
       // 用户不同意条款和政策
       // 处理用户的拒绝，例如重定向到另一个页面或显示一个错误消息
+      window.location.href = '../HelloWorld.vue';
     },
+    goToPhoneLogin() {
+      // 跳转到手机号登录页面
+      this.$router.push({ name: 'PhoneLogin' });
+    }
   },
   mounted() {
     // 检查用户是否已经同意过条款，如果是，则不显示弹出窗口
@@ -29,10 +34,12 @@ export default {
     <!-- 弹出窗口 -->
     <div class="popup" v-if="showPopup">
       <div class="popup-content">
-        <h2>服务条款和隐私政策</h2>
-        <p>请阅读我们的服务条款和隐私政策。</p>
-        <button @click="acceptTerms">同意</button>
-        <button @click="declineTerms">不同意</button>
+        <h2>服务条款和隐私政策提示</h2>
+        <p>欢迎使用网易云音乐</p><br>
+        <p>在您使用网易云前，请您认真阅读并了解《服务条款》和《隐私政策》。</p><br>
+        <p>如您未满14周岁，您还需通知您的监护人共同阅读《儿童隐私政策》，点击“同意”即表示您和您的监护人已阅读并同意全部条款</p>
+        <button @click="acceptTerms" class="act">同意</button>
+        <div @click="declineTerms" class="dlt">不同意并退出App>></div>
       </div>
     </div>
 
@@ -41,7 +48,7 @@ export default {
         <img class="bckimg" src="../../components/picture/wyylogin.png" alt="Login Logo" />
       </div>
       <div class="login-buttons">
-        <button class="PhoneLogin">手机号登录</button>
+        <button @click="goToPhoneLogin" class="PhoneLogin">手机号登录</button>
         <button class="ExperienceNow">立即体验</button>
       </div>
     </div>
@@ -115,6 +122,7 @@ html, body {
 .ExperienceNow {
   width: 60vw;
   height: 5.5vh;
+  margin-top: 10.5px;
   border-radius: 50px;
   border: 1px solid white;
   color: white;
@@ -148,16 +156,43 @@ html, body {
   text-align: center;
 }
 
-/* 按钮样式 */
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.popup-content p {
+  margin-bottom: 0px; /* 减少<p>标签的外边距 */
 }
+
+.popup-content br {
+  line-height: 0px; /* 调整<br>标签的行高 */
+}
+
+.popup-content p::after {
+  content: '\A';
+  white-space: pre;
+}
+/* 按钮样式 */
+
 
 button:hover {
   opacity: 0.9;
+}
+
+.act {
+  width: 70vw;
+  height: 4.5vh;
+  margin-top: 10px;
+  background-color: rgb(216,60,52);
+  border: none;
+  border-radius: 20px;
+  font-size: 17px;
+  color: white;
+}
+
+.dlt {
+  color: blue;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.dlt:focus {
+  outline: none;
 }
 </style>

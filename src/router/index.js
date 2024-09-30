@@ -1,14 +1,25 @@
-import { createWebHistory, createRouter } from "vue-router";
-import routes from "./routes";
+// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
+import Login from '@/components/view/Login.vue';
+import HelloWorld from '@/components/HelloWorld.vue';
+
+const routes = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/',
+    name: 'HelloWorld',
+    component: HelloWorld
+  }
+  // ...其他路由
+];
 
 const router = createRouter({
-  routes,
   history: createWebHistory(),
-});
-
-// 全局前置守卫
-router.beforeEach((to, from, next) => {
-  next();
+  routes,
 });
 
 export default router;

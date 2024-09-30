@@ -1,12 +1,13 @@
-import { createApp } from "vue";
-import "@/style.css";
-import "vant/lib/index.css";
-import { Icon } from "@iconify/vue";
-import App from "@/App.vue";
-import initErrorHandle from "@/utils/initErrorHandle";
-import router from "./router";
-import pinia from "./store";
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router'; // 引入路由配置
 
-initErrorHandle();
+const app = createApp(App);
 
-createApp(App).use(router).use(pinia).use(Icon).mount("#app");
+// 使用路由
+app.use(router);
+
+// 如果有其他插件，也可以在这里使用
+// app.use(SomePlugin);
+
+app.mount('#app');
