@@ -1,3 +1,4 @@
+<!-- 轮播图 -->
 <template>
   <div id="swiperTop">
     <van-swipe :autoplay="3000" lazy-render class="w-[100%]">
