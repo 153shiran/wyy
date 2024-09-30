@@ -1,8 +1,10 @@
+/* eslint-disable import/no-cycle */
 import axios from "axios";
 import { useUserStore } from "@/store";
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_BASEURL,
+  baseURL: "https://wangyiyunapi-gules.vercel.app/",
+  timeout: 1000,
   withCredentials: true,
 });
 // 配置请求拦截器(回调函数)
@@ -32,10 +34,10 @@ http.interceptors.response.use(
       return Promise.reject(response);
     }
     return response;
-  },
-  (error) => {
-    console.log(error.data.code);
   }
+  // (error) => {
+  //   // console.log(error.data.code);
+  // }
 );
 
 // 拦截器作用是：改写请求参数 和 响应数据
