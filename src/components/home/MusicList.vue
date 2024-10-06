@@ -69,7 +69,7 @@ onMounted(async () => {
 }
 .musicList {
   width: 100%;
-  height: 5rem;
+  height: 6rem;
   padding: 0.2rem;
   .musicTop {
     width: 100%;
@@ -100,7 +100,7 @@ onMounted(async () => {
       margin-right: 0.14rem;
       padding-right: 0.2rem;
       position: relative;
-      height: 3.8rem;
+      height: 4.8rem;
       #imglist {
         width: 100%;
         height: 2.8rem;
@@ -122,7 +122,7 @@ onMounted(async () => {
       }
       .name {
         position: absolute;
-        bottom: 0px;
+        bottom: 70px;
       }
     }
   }

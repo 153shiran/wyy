@@ -5,6 +5,7 @@
     <SwiperTop />
     <IconList />
     <MusicList />
+    <ItemMusicList />
   </div>
 </template>
 <script setup>
@@ -14,5 +15,6 @@ import TopNav from "@/components/home/TopNav.vue";
 import SwiperTop from "@/components/home/SwpierTop.vue";
 import IconList from "@/components/home/IconList.vue";
 import MusicList from "@/components/home/MusicList.vue";
+import ItemMusicList from "@/components/home/ItemMusicList.vue";
 </script>
 <style></style>
