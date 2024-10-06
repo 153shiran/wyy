@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <title>Document</title>
+</head>
+<button id="getButton">发送get请求</button><br>
+<button id="postButton">发送post请求</button>
+
+<body>
+</body>
+<script>
+  const getButton = document.getElementById("getButton");
+  const postButton = document.getElementById("postButton");
+  const searchSongs = (params) =>
+    axios.get("http://192.168.68.178:3000/search", { params })
+
+  const searchSongsByPost = (data) => {
+    return axios.post("http://192.168.68.178:3000/search", data)
+  }
+  // 如何发送get请求
+  // axios.get(请求的路径url，{params: {参数...}})
+  getButton.addEventListener("click", function () {
+    searchSongs({
+      type: 1,
+      limit: 10,
+      keywords: 'rap'
+    }).then(function (res) {
+      console.log(res.data.result.songs)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  })
+
+  postButton.addEventListener("click", function () {
+    searchSongsByPost({
+      type: 1,
+      limit: 10,
+      keywords: 'rap'
+    }).then(function (res) {
+      console.log(res);
+    }).catch(function (err) {
+      console.log(err)
+    })
+  })
+
+  // TODO: Promise 和 async...await...  
+  // TODO: thenable
+  // 刚开始Promise起源于民间 后面被官方吸纳 Promise A+规范
+  // 内置的构造函数 针对于不能立刻得到结果（异步操作：setTimeout、请求）
+  function delay(option) {
+    const promise = new Promise(function (resolve, reject) {
+      setTimeout(() => {
+        const randomNumber = Math.random();
+        if (randomNumber >= 0.5) {
+          // 成功
+          resolve(randomNumber);
+        } else {
+          // 失败
+          reject(randomNumber)
+        }
+      }, option.duration);
+    })
+    return promise;
+  }
+  // Promise把异步回调方案转化为链式调用的方案
+  // 只有promise对象才可以跟then、catch方法
+  // 通过then来注册成功的回调函数（当Promise成功后 他会执行的方法）
+  // 通过catch来注失败的回调函数（当Promise失败后 他会执行的方法）
+  // 在Promise内部如何控制成功和失败的状态（通过resolve控制成功、通过reject控制失败）
+  delay({ duration: 2000 })
+    .then(function (res) {
+      console.log("成功了", res)
+      return delay({ duration: 3000 })
+    })
+    .then(function () {
+      console.log("第二次成功了")
+      return delay({ duration: 1000 })
+    })
+    .then(function () {
+      console.log("第3次成功")
+    })
+    .catch(function (err) {
+      console.log("失败了", err)
+    })
+
+
+
+
+
+
+
+  // 回调
+  /*
+  delay({
+    duration: 5000,
+    success() {
+      console.log("成功")
+      delay({
+        duration: 3000,
+        success() {
+          console.log('第二次成功')
+          delay({
+            duration: 3000,
+            success() {
+              console.log('第三次成功')
+            },
+            fail() {
+              console.log('第三次失败')
+            }
+          })
+        },
+        fail() {
+          console.log('第二次失败')
+        }
+      })
+    },
+    fail() {
+      console.log('失败')
+    }
+  });
+  */
+
+
+
+
+</script>
+
+</html>
