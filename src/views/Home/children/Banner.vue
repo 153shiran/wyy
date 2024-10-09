@@ -1,17 +1,12 @@
 <template>
-  <Swiper loop autoplay pagination :modules="[Autoplay, Pagination]">
-    <SwiperSlide v-for="item in props.data" :key="item">
+  <el-carousel :interval="6000" type="card" height="20vw" class="banner">
+    <el-carousel-item v-for="item in props.data" :key="item">
       <img :src="item" alt="" />
-    </SwiperSlide>
-  </Swiper>
+    </el-carousel-item>
+  </el-carousel>
 </template>
 <script setup>
 import { defineProps } from "vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css/autoplay";
-import "swiper/css/pagination";
 
 const props = defineProps({
   data: {
@@ -20,3 +15,9 @@ const props = defineProps({
   },
 });
 </script>
+
+<style scoped>
+.banner {
+  margin-top: 3vw;
+}
+</style>

@@ -7,7 +7,7 @@
       <div class="songContent">
         <!-- 左图片 -->
         <div class="songContent-img">
-          <img v-lazy="songParticulars.img" />
+          <img :src="songParticulars.img" />
         </div>
         <!-- 右歌曲 -->
         <div class="songContent-xx">
@@ -21,15 +21,11 @@
           <div class="songContent-xx-a">
             <el-button type="primary" round @click="playSong">
               <div>
-                <svg class="icon bofnag-icon" aria-hidden="true">
+                <svg class="icon bofnag-icon">
                   <use xlink:href="#icon-a-021_shipin"></use>
                 </svg>
               </div>
             </el-button>
-            <el-button type="success" round>Success</el-button>
-            <el-button type="info" round>Info</el-button>
-            <el-button type="warning" round>Warning</el-button>
-            <el-button type="danger" round>Danger</el-button>
           </div>
           <!-- 歌词 -->
           <div class="songContent-xx-a geci">
@@ -72,7 +68,7 @@ import Comment from "@/components/Comment.vue";
 import emitter from "@/plugins/bus";
 import ChangeSong from "@/utils/Lyric";
 
-//    路由
+// 实例化路由
 const route = useRoute();
 // Pinia仓库
 const counterStore = useCounterStore();
@@ -209,6 +205,7 @@ onMounted(async () => {
   songParticulars.songId = route.params.songId || counterStore.lastSongId;
   // 调用仓库方法：存入歌曲id到本地
   counterStore.SongIdToLocal(songParticulars.songId);
+  console.log("路由参数", route.params);
 
   // 用歌曲id拿到歌曲信息
   const gequxiangqing = await reqSongDetail(songParticulars.songId);

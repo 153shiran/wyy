@@ -147,7 +147,7 @@ let searchResult = reactive({
 // 获取搜索内容的信息
 async function searchContent(i) {
   const { data: data } = await reqSearch(searchValue.searchValue, i, 5, 0);
-  console.log(i, data.result);
+  console.log(i, data);
   if (i == 1) {
     searchResult.sings = data.result.songs;
     searchResult.singsFive = searchResult.sings.slice(0, 5);

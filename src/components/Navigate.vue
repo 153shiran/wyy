@@ -6,8 +6,8 @@
     <div class="flex justify-around items-center" @click="toHome">
       <Icon
         icon="ri:netease-cloud-music-fill"
-        width="30"
-        height="30"
+        width="5vw"
+        height="5vw"
         style="color: #cc3333"
       />
       <div style="color: white">仿网易云音乐</div>
@@ -27,16 +27,16 @@
         @input="searchOnchange"
         placeholder="搜索： 歌曲 歌单 歌手 用户"
       />
-
-      <SearchPopup
-        class="search-popup"
-        v-show="isSearchFocus"
-        :searchValue="searchValueTow"
-      ></SearchPopup>
     </div>
 
+    <SearchPopup
+      class="search-popup"
+      v-show="isSearchFocus"
+      :searchValue="searchValueTow"
+    ></SearchPopup>
+
     <!-- 未登录 -->
-    <div @click="userLog" v-if="!userStore.myCookie" class="mr-[3vw]">
+    <div @click="userLog" v-if="!userStore.myCookie" class="mr-[10vw]">
       请登录
     </div>
     <!-- 我的 -->
@@ -184,8 +184,8 @@ onMounted(() => {
     padding-left: 3vw;
   }
   .searchIcon {
-    z-index: 99;
     position: relative;
+    z-index: 2;
     .icon {
       width: 2vw;
       height: 2vw;
@@ -197,8 +197,9 @@ onMounted(() => {
   }
 }
 .search-popup {
-  position: relative;
-  z-index: 98;
-  top: 20vw;
+  position: absolute;
+  z-index: 1000;
+  left: 35vw;
+  top: 5vw;
 }
 </style>

@@ -663,7 +663,7 @@ onMounted(async () => {
 .myBofnagqi {
   width: 90vw;
   left: 2vw;
-  height: 10vw;
+  height: 20vw;
   background-color: rgb(214, 211, 211);
   display: flex;
   flex-direction: column;
@@ -671,6 +671,7 @@ onMounted(async () => {
   justify-content: space-between;
   border-radius: 2vw;
   box-shadow: 0 0 1vw black;
+  z-index: 3;
 
   /* 其他样式 */
   .show {
@@ -710,7 +711,6 @@ onMounted(async () => {
         width: 10vw;
         height: 10vw;
         border-radius: 99999999px;
-        margin-bottom: 3vw;
       }
 
       .xuanzhuan {
@@ -733,11 +733,6 @@ onMounted(async () => {
           border-radius: 1vw;
           background-color: #e2e0e0;
         }
-
-        .name {
-          font-size: 1.5vw;
-          font-weight: 600;
-        }
       }
     }
 
@@ -754,9 +749,8 @@ onMounted(async () => {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        margin-top: 3px;
         width: 100%;
-        height: 45px;
+        height: 10vw;
 
         .myBofnagqi-bofangqianniu-wai {
           display: flex;
@@ -853,7 +847,7 @@ onMounted(async () => {
         flex-direction: column;
         align-items: center;
         border-radius: 1vw;
-
+        padding-bottom: 5vw;
         .jdt {
           width: 95%;
         }
