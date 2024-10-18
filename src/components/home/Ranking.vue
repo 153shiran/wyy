@@ -1,9 +1,9 @@
 <!-- eslint-disable no-unused-vars -->
-<!-- 推荐歌单 -->
+<!-- 排行榜 -->
 <template>
   <div class="musicList">
     <div class="musicTop">
-      <div class="title">推荐歌单</div>
+      <div class="title">排行榜</div>
       <div>
         <Icon
           icon="system-uicons:menu-vertical"
@@ -20,8 +20,8 @@
         :show-indicators="false"
       >
         <van-swipe-item v-for="item in state.musicList" :key="item">
-          <router-link :to="{ path: '/itemMusic', query: { id: item.id } }">
-            <img :src="item.picUrl" alt="" id="imglist" />
+          <router-link :to="{ path: '', query: { id: item.id } }">
+            <img :src="item.coverImgUrl" alt="" id="imglist" />
             <span class="playCount">
               <Icon
                 icon="mingcute:music-3-line"
@@ -30,7 +30,7 @@
               />
               {{ changeCount(item.playCount) }}
             </span>
-            <span class="name">{{ item.name }}</span>
+            <span class="name">{{ item.description }}</span>
           </router-link>
         </van-swipe-item>
       </van-swipe>
@@ -40,7 +40,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 // eslint-disable-next-line import/extensions
-import { getMusicList } from "@/api/apilist/home.js";
+import { getRanking } from "@/api/apilist/home.js";
 import { reactive, onMounted } from "vue";
 
 const state = reactive({
@@ -56,9 +56,9 @@ function changeCount(num) {
   }
 }
 onMounted(async () => {
-  const res = await getMusicList();
+  const res = await getRanking();
   console.log(res);
-  state.musicList = res.data.result;
+  state.musicList = res.data.list.slice(0, 10);
   changeCount();
 });
 </script>
@@ -116,7 +116,13 @@ onMounted(async () => {
       }
       .name {
         position: absolute;
-        font-size: 21px;
+        font-size: 17px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* 限制在2行以内 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        white-space: normal;
       }
     }
   }

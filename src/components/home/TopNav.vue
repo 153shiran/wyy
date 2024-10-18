@@ -1,4 +1,4 @@
-<!-- 菜单搜索框 -->
+<!--  菜单搜索框 -->
 <template>
   <div class="topNav">
     <div class="topleft">
@@ -36,13 +36,73 @@
       </svg>
     </div>
   </div>
+  <div class="count">
+    <div class="countNav">
+      <div>{{ timeState }}</div>
+    </div>
+    <div class="countStatus">
+      <a href="" @click.prevent="logout">退出登录</a>
+    </div>
+  </div>
 </template>
 <script setup>
+import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
+import { useRouter } from "vue-router";
+import { getStatus, getLogout } from "../../api/apilist/login";
+
+const timeState = ref("");
+const router = useRouter("");
+
+// 获取上下晚时间
+onMounted(async () => {
+  const now = new Date();
+  const hours = now.getHours();
+  let timeOfDay;
+
+  if (hours < 12) {
+    // eslint-disable-next-line no-unused-vars
+    timeOfDay = "早上";
+  } else if (hours >= 12 && hours < 18) {
+    timeOfDay = "下午";
+  } else {
+    // eslint-disable-next-line no-unused-vars
+    timeOfDay = "晚上";
+  }
+  timeState.value = `${timeOfDay}好!`;
+});
+
+async function logout() {
+  try {
+    const status = await getLogout();
+    console.log(status.value);
+    if (status.data.code === 200) {
+      router.push("/");
+    } else {
+      console.log("退出登录失败:", status.data);
+    }
+  } catch (error) {
+    console.error("退出登录请求失败:", error);
+  }
+}
 </script>
-<style scoped>
+<style scoped lang="less">
 #searchicon {
   margin-left: 15px;
+}
+.count {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.countNav {
+  margin: 5px 20px;
+  font-size: 40px;
+}
+.countStatus a {
+  margin: 5px 20px;
+  font-size: 20px;
 }
 .topNav {
   width: 100%;

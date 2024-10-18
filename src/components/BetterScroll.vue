@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     ref="wrapper"
     :class="`wrapper overflow-hidden ${props.config.scrollX ? 'flex' : ''}`"
@@ -48,4 +48,4 @@ watchEffect(() => {
 });
 
 onBeforeUnmount(() => bs.destroy());
-</script>
+</script> -->

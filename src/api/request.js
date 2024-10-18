@@ -1,9 +1,10 @@
 /* eslint-disable import/no-cycle */
 import axios from "axios";
+// eslint-disable-next-line import/named
 import { useUserStore } from "@/store";
 
 const http = axios.create({
-  baseURL: "https://wangyiyunapi-gules.vercel.app/",
+  baseURL: " http://localhost:3000",
   timeout: 1000,
   withCredentials: true,
 });
@@ -14,6 +15,7 @@ http.interceptors.request.use(async (config) => {
   // 在请求拦截器需要获取登陆凭证（cookie、token） userStore => localStorage
   // 在组件外使用需要注意：使用useXXXStore()一定需要在app.use(pinia)之后
   const userStore = useUserStore();
+
   /*
   const extParams = {};
   if (userStore.cookie) extParams.cookie = userStore.cookie;

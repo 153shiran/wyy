@@ -3,7 +3,7 @@ import http from "../request";
 export function getBanner() {
   return http({
     method: "GET",
-    url: "banner?type=2",
+    url: "banner",
   });
 }
 
@@ -20,5 +20,21 @@ export function getMusicList() {
   return http({
     method: "GET",
     url: "/personalized?limit=10",
+  });
+}
+
+// 排行榜
+export function getRanking() {
+  return http({
+    method: "GET",
+    url: "http://localhost:3000/toplist/detail",
+  });
+}
+
+// 新歌新碟
+export function getAlbums() {
+  return http({
+    method: "GET",
+    url: "http://localhost:3000/homepage/block/page",
   });
 }

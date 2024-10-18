@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <div class="flex justify-between">
       <span @click="emit('clickTitle')" class="text-[#3e4659] font-bold">{{
@@ -25,4 +25,4 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["clickMore", "clickTitle"]);
-</script>
+</script> -->

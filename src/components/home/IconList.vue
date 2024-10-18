@@ -45,7 +45,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .van-swipe-item {
   #imglist {
     height: 100px;

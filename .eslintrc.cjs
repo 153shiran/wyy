@@ -24,6 +24,7 @@ module.exports = {
     quotes: ["error", "double"],
     "import/no-extraneous-dependencies": "off",
     "vue/multi-word-component-names": "off",
+    "no-console": "off",
   },
   settings: {
     "import/resolver": {

@@ -1,5 +1,5 @@
 <!-- eslint-disable vue/valid-v-for -->
-<!-- 专属你的精选 -->
+<!-- 新歌新碟 -->
 <template>
   <div class="itemMusicList">
     <div class="itemMusicElement">
@@ -23,8 +23,9 @@
           v-for="item in itemMusic.resources"
           class="itemBox"
         >
-          <img :src="item.resourceExtInfo.song.al.picUrl" alt="" id="imglist" />
-          <div class="itemWord">{{ item.resourceExtInfo.song.al.name }}</div>
+          <img :src="item.uiElement.image.imageUrl" alt="" id="imglist" />
+          <div class="itemWord-one">{{ item.uiElement.mainTitle.title }}</div>
+          <div class="itemWord-two">{{ item.uiElement.subTitle.title }}</div>
         </div>
       </van-swipe-item>
     </van-swipe>
@@ -44,8 +45,8 @@ onMounted(() => {
     .get("https://wangyiyunapi-gules.vercel.app/homepage/block/page")
     .then((res) => {
       console.log(res);
-      state.itemMusicList = res.data.data.blocks[3].creatives;
-      state.itemMusicElement = res.data.data.blocks[3].uiElement;
+      state.itemMusicList = res.data.data.blocks[4].creatives;
+      state.itemMusicElement = res.data.data.blocks[4].uiElement;
       console.log(state.itemMusicList);
       console.log(state.itemMusicElement);
     });
@@ -68,9 +69,16 @@ onMounted(() => {
   position: relative;
   margin: 10px 10px;
 }
-.itemWord {
+.itemWord-one {
+  font-size: 27px;
   position: absolute;
   top: 0px;
+  left: 165px;
+}
+.itemWord-two {
+  font-size: 20px;
+  position: absolute;
+  top: 70px;
   left: 165px;
 }
 .itemMusicElement {
