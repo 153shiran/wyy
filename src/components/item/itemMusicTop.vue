@@ -156,7 +156,7 @@ const changeCount = (num) => {
   display: flex;
   justify-content: space-between;
   .contentLeft {
-    width: 36%;
+    width: 2.6rem;
     height: 2.6rem;
     position: relative;
 

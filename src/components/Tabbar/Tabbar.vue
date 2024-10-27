@@ -1,6 +1,7 @@
 <template>
+  <FooterMusic :fixed="isItemMusicPage" />
   <van-tabbar
-    v-if="!route.meta.hideTabBar"
+    v-if="showTabbar"
     v-model="active"
     active-color="#ee0a24"
     class="tab-bar"
@@ -69,12 +70,30 @@
   </van-tabbar>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import FooterMusic from "../item/FooterMusic.vue";
 
 const active = ref(0);
 const router = useRouter();
 const route = useRoute();
+const showTabbar = ref(true);
+const isItemMusicPage = ref(false);
+
+watch(route, (to) => {
+  if (to.path.includes("/itemMusic")) {
+    showTabbar.value = false;
+    isItemMusicPage.value = true;
+  } else {
+    showTabbar.value = true;
+    isItemMusicPage.value = false;
+  }
+  if (to.path.includes("/login")) {
+    showTabbar.value = false;
+    isItemMusicPage.value = false;
+  }
+});
+
 function goToPage(path) {
   router.push(path);
 }

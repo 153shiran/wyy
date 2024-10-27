@@ -16,6 +16,7 @@
     "await-to-js": "^3.0.0",
     "axios": "^1.7.7",
     "axios-mock-adapter": "^2.0.0",
+    "express": "^4.21.1",
     "localforage": "^1.10.0",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^4.0.2",

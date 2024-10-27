@@ -4,7 +4,7 @@ import "vant/lib/index.css";
 import { Icon } from "@iconify/vue";
 import App from "@/App.vue";
 import initErrorHandle from "@/utils/initErrorHandle";
-import { Tabbar, TabbarItem, Loading } from "vant";
+import { Tabbar, TabbarItem, Loading, Popup } from "vant";
 import router from "./router";
 import pinia from "./store";
 
@@ -26,6 +26,7 @@ function remSize() {
 remSize();
 
 // 窗口发生变化就调用
+// eslint-disable-next-line func-names
 window.onresize = function () {
   remSize();
 };
@@ -39,4 +40,5 @@ createApp(App)
   .use(pinia)
   .component("Icon", Icon)
   .use(Loading)
+  .use(Popup)
   .mount("#app");

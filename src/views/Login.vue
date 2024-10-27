@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-parsing-error -->
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 // eslint-disable-next-line import/no-cycle

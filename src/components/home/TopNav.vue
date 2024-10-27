@@ -49,7 +49,7 @@
 import { ref, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
 import { useRouter } from "vue-router";
-import { getStatus, getLogout } from "../../api/apilist/login";
+import { getLogout } from "../../api/apilist/login";
 
 const timeState = ref("");
 const router = useRouter("");
@@ -77,7 +77,7 @@ async function logout() {
     const status = await getLogout();
     console.log(status.value);
     if (status.data.code === 200) {
-      router.push("/");
+      router.push("/login");
     } else {
       console.log("退出登录失败:", status.data);
     }

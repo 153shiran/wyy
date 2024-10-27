@@ -56,9 +56,7 @@ onMounted(() => {
   width: 100%;
   margin-bottom: 10vw;
 }
-.itemMusicElement {
-  margin-left: 20px;
-}
+
 #imglist {
   width: 150px;
   height: 150px;
@@ -76,7 +74,7 @@ onMounted(() => {
 .itemMusicElement {
   font-size: 0.4rem;
   font-weight: 900;
-  width: 100%;
+  margin-left: 20px;
   height: 0.6rem;
   display: flex;
   justify-content: space-between;

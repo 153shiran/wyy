@@ -17,3 +17,11 @@ export function getItemList(id) {
     url: `/playlist/track/all?id=${id}&limit=50&offset=1`,
   });
 }
+
+// 获取歌曲的歌词
+export function getMusicLyric(id) {
+  return http({
+    method: "GET",
+    url: `/lyric/new?id=${id}`,
+  });
+}

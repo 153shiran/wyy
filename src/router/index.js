@@ -9,7 +9,7 @@ import Login from "../views/Login.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     component: Login,
     meta: { hideTabBar: true, hideFootMusic: true },
   },
@@ -37,6 +37,7 @@ const routes = [
   {
     path: "/itemMusic",
     component: ItemMusic,
+    meta: { hideTabBar: true },
   },
 ];
 

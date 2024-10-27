@@ -1,27 +1,21 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <script setup>
 import { defineProps } from "vue";
+import { usePlayListStore } from "../../store/index";
 
-// 定义响应式状态
-
-// const store = useStore();
-
+// 定义组件属性
 const props = defineProps({
-  // 通过props进行传值，判断如果数据拿不到，就获取sessionStorage中的
-  itemList: [],
+  itemList: Array,
+  subscribedCount: Number,
 });
-console.log(props);
 
-// eslint-disable-next-line no-cond-assign
-if ((props.itemList.creator = "")) {
-  props.itemList.creator = JSON.parse(
-    sessionStorage.getItem().itemList
-  ).creator;
-}
+// 获取 store 实例
+const playlistStore = usePlayListStore();
 
-const playMusic = function (i) {
-  this.updatePlayList(this.itemList);
-  this.updatePlayListIndex(i);
+// 定义播放音乐的方法
+const playMusic = (i) => {
+  playlistStore.updatePlayList(props.itemList);
+  playlistStore.updatePlayListIndex(i);
 };
 
 // const updatePlayList = (playlist) => {

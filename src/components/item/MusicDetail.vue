@@ -1,15 +1,22 @@
-<!-- <template>
+<script setup>
+import { Vue3Marquee } from "vue3-marquee";
+import { defineProps } from "vue";
+import { Icon } from "@iconify/vue";
+
+const props = defineProps({
+  musicList: Array,
+  isbtnShow: Array,
+  play: Array,
+});
+console.log(props.musicList);
+</script>
+<template>
   <img :src="musicList.al.picUrl" alt="" class="bgimg" />
   <div class="detailTop">
     <div class="detailTopLeft">
-      <svg class="icon liebiao" aria-hidden="true" @click="backHome">
-        <use xlink:href="#icon-zuojiantou"></use>
-      </svg>
       <div class="leftMarquee">
         <Vue3Marquee style="color: #fff">{{ musicList.al.name }}</Vue3Marquee>
-        <span v-for="item in musicList.ar" :key="item">
-          {{ item.name }}
-        </span>
+
         <svg class="icon liebiao" aria-hidden="true">
           <use xlink:href="#icon-youjiantou1"></use>
         </svg>
@@ -21,62 +28,47 @@
       </svg>
     </div>
   </div>
-  <div class="detailContent" v-show="!isLyricShow">
+  <div class="detailContent">
     <img
-      src="@/assets/needle-ab.png"
+      src="@/assets/cr.png"
       alt=""
-      class="img_needle"
-      :class="{ img_needle_active: !isbtnShow }"
+      class="img_cr"
+      :class="{ img_cr_active: !isbtnShow }"
     />
     <img src="@/assets/cd.png" alt="" class="img_cd" />
     <img
       :src="musicList.al.picUrl"
       alt=""
       class="img_ar"
-      @click="isLyricShow = true"
       :class="{ img_ar_active: !isbtnShow, img_ar_pauesd: isbtnShow }"
     />
   </div>
-  <div class="musicLyric" ref="musicLyric" v-show="isLyricShow">
-    <p
-      v-for="item in lyric"
-      :key="item"
-      :class="{
-        active:
-          currentTime * 1000 >= item.time && currentTime * 1000 < item.pre,
-      }"
-    >
-      {{ item.lrc }}
-    </p>
-  </div>
   <div class="detailFooter">
     <div class="footerTop">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-aixin"></use>
-      </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-iconfontzhizuobiaozhun023146"></use>
-      </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-yinlechangpian"></use>
-      </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-iconfontzhizuobiaozhun023110"></use>
-      </svg>
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-liebiao-"></use>
-      </svg>
+      <div>
+        <p class="footerTopWordOne">{{ musicList.name }}</p>
+        <div class="footerTopWordTwo">
+          <p v-for="item in musicList.ar" :key="item">
+            {{ item.name }}
+          </p>
+        </div>
+      </div>
+      <div class="footerTopIcon">
+        <Icon
+          icon="material-symbols:favorite-outline"
+          width="48"
+          height="48"
+          style="color: black"
+        />
+        <Icon
+          icon="iconamoon:comment-dots"
+          width="48"
+          height="48"
+          style="color: black"
+        />
+      </div>
     </div>
-    <div class="footerContent">
-      <input
-        type="range"
-        class="range"
-        min="0"
-        :max="duration"
-        v-model="currentTime"
-        step="0.05"
-      />
-    </div>
+    <div class="footerContent"></div>
     <div class="footer">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-xunhuan"></use>
@@ -104,112 +96,7 @@
     </div>
   </div>
 </template>
-<script>
-import { Vue3Marquee } from "vue3-marquee";
-import "vue3-marquee/dist/style.css";
-import { mapMutations, mapState } from "vuex";
-
-export default {
-  data() {
-    return {
-      isLyricShow: false,
-    };
-  },
-  computed: {
-    ...mapState([
-      "lyricList",
-      "currentTime",
-      "playListIndex",
-      "playList",
-      "duration",
-    ]),
-    lyric() {
-      let arr;
-      if (this.lyricList.lyric) {
-        arr = this.lyricList.lyric.split(/[(\r\n)\r\n]+/).map((item, i) => {
-          const min = item.slice(1, 3);
-          const sec = item.slice(4, 6);
-          let mill = item.slice(7, 10);
-          let lrc = item.slice(11, item.length);
-          let time =
-            parseInt(min, 10) * 60 * 1000 +
-            parseInt(sec, 10) * 1000 +
-            parseInt(mill, 10);
-          // eslint-disable-next-line no-restricted-globals
-          if (isNaN(Number(mill))) {
-            mill = item.slice(7, 9);
-            lrc = item.slice(10, item.length);
-            time =
-              parseInt(min, 10) * 60 * 1000 +
-              parseInt(sec, 10) * 1000 +
-              parseInt(mill, 10);
-          }
-          // console.log(min,sec,Number(mill),lrc);
-          return { min, sec, mill, lrc, time };
-        });
-        arr.forEach((item, i) => {
-          // eslint-disable-next-line no-restricted-globals
-          if (i === arr.length - 1 || isNaN(arr[i + 1].time)) {
-            // eslint-disable-next-line no-param-reassign
-            item.pre = 100000;
-          } else {
-            // eslint-disable-next-line no-param-reassign
-            item.pre = arr[i + 1].time;
-          }
-        });
-      }
-      console.log(arr);
-      return arr;
-    },
-  },
-  mounted() {
-    // console.log(this.musicList);
-    // console.log(this.lyricList.lyric);
-    this.addDuration();
-  },
-  props: ["musicList", "isbtnShow", "play", "addDuration"],
-  methods: {
-    backHome() {
-      this.isLyricShow = false;
-      this.updateDetailShow();
-    },
-    goPlay(num) {
-      let index = this.playListIndex + num;
-      if (index < 0) {
-        index = this.playList.length - 1;
-      } else if (index === this.playList.length) {
-        index = 0;
-      }
-      this.updatePlayListIndex(index);
-    },
-    ...mapMutations(["updateDetailShow", "updatePlayListIndex"]),
-  },
-  watch: {
-    currentTime(newValue) {
-      const p = document.querySelector("p.active");
-      // console.log([p]);
-      if (p) {
-        if (p.offsetTop > 300) {
-          this.$refs.musicLyric.scrollTop = p.offsetTop - 300;
-        }
-      }
-      if (newValue === this.duration) {
-        if (this.playListIndex === this.playList.length - 1) {
-          this.updatePlayListIndex(0);
-          this.play();
-        } else {
-          this.updatePlayListIndex(this.playListIndex + 1);
-        }
-      }
-      // console.log([this.$refs.musicLyric])
-    },
-  },
-  components: {
-    Vue3Marquee,
-  },
-};
-</script>
-<style lang="less" scoped>
+<style scoped lang="less">
 .bgimg {
   width: 100%;
   height: 100%;
@@ -228,18 +115,28 @@ export default {
   .detailTopLeft {
     display: flex;
     align-items: center;
+    justify-content: center;
+    .icon {
+      width: 0.5rem;
+      height: 0.5rem;
+    }
     .leftMarquee {
       width: 3rem;
       height: 100%;
-      margin-left: 0.4rem;
-      span {
-        color: #999;
-      }
+      margin-left: 1.4rem;
+      display: flex;
+
       .icon {
-        width: 0.3rem;
-        height: 0.3rem;
+        width: 0.4rem;
+        height: 0.4rem;
         fill: #999;
       }
+    }
+  }
+  .detailTopRight {
+    .icon {
+      width: 0.7rem;
+      height: 0.7rem;
     }
   }
 }
@@ -250,25 +147,24 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
-  .img_needle {
-    width: 2rem;
+  .img_cr {
+    width: 3rem;
     height: 3rem;
     position: absolute;
-    left: 46%;
+    left: 30%;
     transform-origin: 0 0;
     transform: rotate(-13deg);
     transition: all 2s;
   }
-  .img_needle_active {
-    width: 2rem;
+  .img_cr_active {
+    width: 3rem;
     height: 3rem;
     position: absolute;
-    left: 46%;
+    left: 30%;
     transform-origin: 0 0;
     transform: rotate(0deg);
     transition: all 2s;
   }
-
   .img_cd {
     width: 5rem;
     height: 5rem;
@@ -279,9 +175,9 @@ export default {
   .img_ar {
     width: 3.2rem;
     height: 3.2rem;
-    border-radius: 50%;
     position: absolute;
-    bottom: 3.14rem;
+    border-radius: 50%;
+    bottom: 3.2rem;
     animation: rotate_ar 10s linear infinite;
   }
   .img_ar_active {
@@ -292,76 +188,48 @@ export default {
   }
   @keyframes rotate_ar {
     0% {
-      transform: rotateZ(0deg);
+      transform: rotate(0deg);
     }
     100% {
-      transform: rotateZ(360deg);
+      transform: rotate(360deg);
     }
   }
 }
-.musicLyric {
-  width: 100%;
-  height: 8rem;
+.footerTop {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 0.2rem;
-  overflow: scroll;
-  p {
-    color: rgb(190, 181, 181);
-    margin-bottom: 0.3rem;
-  }
-  .active {
-    color: #fff;
-    font-size: 0.5rem;
-  }
-}
-.detailFooter {
-  width: 100%;
-  height: 3rem;
-  position: absolute;
-  bottom: 0.2rem;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  .footerTop {
-    width: 100%;
-    height: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    .icon {
-      width: 0.36rem;
-      height: 0.36rem;
-      fill: rgb(245, 234, 234);
-    }
-    .icon {
-      width: 0.6rem;
-      height: 0.6rem;
-    }
-  }
-  .range {
-    width: 100%;
-    height: 0.06rem;
-  }
-  .footer {
-    width: 100%;
-    height: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    .icon {
-      fill: rgb(245, 234, 234);
-    }
-    .bofang {
-      width: 1rem;
-      height: 1rem;
-    }
-  }
+  margin-top: -100px;
 }
-</style> -->
-
-<template>
-  <div></div>
-</template>
-<script></script>
+.footerTop .footerTopWordOne {
+  width: 2.5rem;
+  height: 50px;
+  font-size: 18px;
+  color: #fff;
+}
+.footerTopWordTwo {
+  width: 100%;
+  display: flex;
+  font-size: 16px;
+  color: #999;
+}
+.footerTopIcon {
+  width: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 100px;
+}
+.footer .icon {
+  width: 0.6rem;
+  height: 0.6rem;
+  fill: rgb(245, 234, 234);
+}
+.footer .bofang {
+  width: 1rem;
+  height: 1rem;
+}
+</style>
